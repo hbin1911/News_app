@@ -9,8 +9,7 @@ const News = (props) => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
-  // document.title = `DailyNews - ${capitalize(props.category)}`;
-
+  
   const capitalize = (string) => {
     return string[0].toUpperCase() + string.slice(1).toLowerCase();
   };
@@ -30,23 +29,24 @@ const News = (props) => {
   };
 
   useEffect(() => {
+    document.title = `DailyNews - ${capitalize(props.category)}`;
     updateNews();
   }, []);
 
-  const handlePrevClick = async () => {
-    setPage(page - 1);
-    updateNews();
-  };
+  // const handlePrevClick = async () => {
+  //   setPage(page - 1);
+  //   updateNews();
+  // };
 
-  const handleNextClick = async () => {
-    setPage(page + 1);
-    updateNews();
-  };
+  // const handleNextClick = async () => {
+  //   setPage(page + 1);
+  //   updateNews();
+  // };
 
   const fetchMoreData = async () => {
+    
+    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=4fa506642d994a779b08e83c65459c6b&page=${page+1}&pageSize=${props.pageSize}`;
     setPage(page + 1);
-    const url = `https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=4fa506642d994a779b08e83c65459c6b&page=${page}&pageSize=${props.pageSize}`;
-
     let data = await fetch(url);
     let parsedData = await data.json();
     setArticles(articles.concat(parsedData.articles));
@@ -56,7 +56,7 @@ const News = (props) => {
   console.log("render");
   return (
     <div className="container my-3">
-      <h1 className="text-center">
+      <h1 className="text-center" style={{marginTop: '70px'}}>
         DailyNews - Top Headlines from {capitalize(props.category)}
       </h1>
 
