@@ -31,7 +31,7 @@ const News = (props) => {
   useEffect(() => {
     document.title = `DailyNews - ${capitalize(props.category)}`;
     updateNews();
-  }, []);
+  });
 
   // const handlePrevClick = async () => {
   //   setPage(page - 1);
